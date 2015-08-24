@@ -13,8 +13,15 @@ func consume_food():
 	var new_node = duplicate()
 	get_parent().add_child(new_node)
 	
-	get_parent().get_node("KinematicBody").get_node("Tail").add_tail()
+#	get_parent().get_node("KinematicBody").get_node("Tail").add_tail()
 	
+	var tail_node = get_parent().get_node("KinematicBody").get_node("Tail")
+	
+	var curr = tail_node
+	while(curr.get_child(0) != null):
+		curr = curr.get_child(0)
+		
+	curr.add_tail()
 	queue_free()
 	
 func _ready():
