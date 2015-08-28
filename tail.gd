@@ -7,7 +7,7 @@ extends RigidBody
 var new_translation
 
 func _fixed_process(delta):
-	set_translation(Vector3(0, 0, 4))
+	set_translation(Vector3(0, 0, 2.1))
 
 func _ready():
 	set_fixed_process(true)
