@@ -1,15 +1,12 @@
-
 extends Camera
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
+
 var r_pos = Vector2()
 var x_pos = get_translation().x
 var y_pos = get_translation().y
-var d = 0
+
 func _process(delta):
-	d += delta
+	get_parent().set_translation(get_parent().get_parent().get_node("KinematicBody").get_translation())
 #	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
 #		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -18,9 +15,9 @@ func _process(delta):
 		x_pos += r_pos.x/300
 	if(abs(r_pos.y) > 2):
 		y_pos += r_pos.y/300
-	
+
+# Looks at camerbody which is set to follow the snake character
 	look_at(get_parent().get_translation(), Vector3(0, 1, 0))
-	
 	set_translation(Vector3(cos(x_pos)*10, 5, sin(x_pos)*10))
 	
 

@@ -1,24 +1,21 @@
 extends KinematicBody
 
-# member variables here, example:
-# var a=2
-# var b="textvar"
-var variable_x = 0
-var variable_y = 0
-var variable_z = 0
+# controls
 var go_right
 var go_left
 var go_up
 var go_down
 var go_backward
-var d = .2
+
+var delay_start = .2
 var speed = .2
 var tail
 var x_axis_count = 0
 var up_axis_count = 0
 var down_axis_count = 0
+
+# Set at the beginning in order to make the snake automatically start moving forward
 var go_forward = true
-var child_translation
 var array = []
 
 func _input(ev):
@@ -54,67 +51,56 @@ func _input(ev):
 func _fixed_process(delta):
 	array.push_back(get_global_transform())
 
-	if d < 0:
+	if delay_start < 0:
 		get_node("Tail").set_global_transform(array[0])
 		array.remove(0)
 
-	d += -delta
+	delay_start += -delta
 	if(!(go_up or go_down)):
 		if(go_right == true):
 			if(x_axis_count == 1):
 #				set_rotation(Vector3(0, -1.571, 0))
-				variable_z = speed
-				move_snake(variable_z, 0, 0)
+				move_snake(speed, 0, 0)
 			elif(x_axis_count == 2):
-				variable_x = speed
 #				set_rotation(Vector3(0, 3.142, 0))
-				move_snake(0, 0, variable_x)
+				move_snake(0, 0, speed)
 			elif(x_axis_count == 3):
-				variable_z = -speed
 #				set_rotation(Vector3(0, 1.571, 0))
-				move_snake(variable_z, 0, 0)
+				move_snake(-speed, 0, 0)
 			elif(x_axis_count == 4):
-				variable_x = -speed
-				move_snake(0, 0, variable_x)
+				move_snake(0, 0, -speed)
 			else:
 				x_axis_count = 1
 			
 		elif(go_left == true):
 			if(x_axis_count == 1):
 #				set_rotation(Vector3(0, -1.571, 0))
-				variable_z = speed
-				move_snake(variable_z, 0, 0)
+				move_snake(speed, 0, 0)
 			elif(x_axis_count == 2):
-				variable_x = speed
 #				set_rotation(Vector3(0, 3.142, 0))
-				move_snake(0, 0, variable_x)
+				move_snake(0, 0, speed)
 			elif(x_axis_count == 3):
-				variable_z = -speed
 #				set_rotation(Vector3(0, 1.571, 0))
-				move_snake(variable_z, 0, 0)
+				move_snake(-speed, 0, 0)
 			elif(x_axis_count == 4):
-				variable_x = -speed
-				move_snake(0, 0, variable_x)
+				move_snake(0, 0, -speed)
 			else:
 				x_axis_count = 4
 	elif (go_up == true):
-		variable_y = speed
 #		set_rotation(Vector3(1.571, 0, 0))
-		move_snake(0, variable_y, 0)
+		move_snake(0, speed, 0)
 		if(up_axis_count > 1):
 			go_up = false
 			up_axis_count = 0 
 
 	elif(go_down == true):
-		variable_y = -speed
 #		set_rotation(Vector3(-1.571, 0, 0))
-		move_snake(0, variable_y, 0)
+		move_snake(0, -speed, 0)
 		if(down_axis_count > 1):
 			go_down = false
 			down_axis_count = 0
 	if((go_forward == true) and !(go_down or go_up)):
-		variable_x = -speed
-		move_snake(0, 0, variable_x)
+		move_snake(0, 0, -speed)
 
 
 
