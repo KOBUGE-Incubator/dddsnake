@@ -10,8 +10,8 @@ var y_pos = get_translation().y
 var d = 0
 func _process(delta):
 	d += delta
-	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+#	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
+#		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 	if(abs(r_pos.x) > 2):

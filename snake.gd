@@ -1,4 +1,3 @@
-
 extends KinematicBody
 
 # member variables here, example:
@@ -15,11 +14,14 @@ var go_backward
 
 var speed = .2
 var tail
-var d = 0
+var d = .5
 var x_axis_count = 0
 var up_axis_count = 0
 var down_axis_count = 0
 var go_forward = true
+var child_translation
+var array = []
+var count
 func _input(ev):
 	set_rotation(Vector3(.05, 0, 0))
 	if (Input.is_action_pressed("ui_right")):
@@ -51,21 +53,26 @@ func _input(ev):
 		down_axis_count = 0
 		
 func _fixed_process(delta):
+	array.append(get_translation())
+	count = 0
+	if d < 0:
+		count += 1
+		get_node("Tail").global_translate(array[count])
 
-	
+	d += -delta
 	if(!(go_up or go_down)):
 		if(go_right == true):
 			if(x_axis_count == 1):
-				set_rotation(Vector3(0, -1.571, 0))
+#				set_rotation(Vector3(0, -1.571, 0))
 				variable_z = speed
 				move_snake(variable_z, 0, 0)
 			elif(x_axis_count == 2):
 				variable_x = speed
-				set_rotation(Vector3(0, 3.142, 0))
+#				set_rotation(Vector3(0, 3.142, 0))
 				move_snake(0, 0, variable_x)
 			elif(x_axis_count == 3):
-				variable_z = -speed
-				set_rotation(Vector3(0, 1.571, 0))
+
+#				set_rotation(Vector3(0, 1.571, 0))
 				move_snake(variable_z, 0, 0)
 			elif(x_axis_count == 4):
 				variable_x = -speed
@@ -75,16 +82,16 @@ func _fixed_process(delta):
 			
 		elif(go_left == true):
 			if(x_axis_count == 1):
-				set_rotation(Vector3(0, -1.571, 0))
+#				set_rotation(Vector3(0, -1.571, 0))
 				variable_z = speed
 				move_snake(variable_z, 0, 0)
 			elif(x_axis_count == 2):
 				variable_x = speed
-				set_rotation(Vector3(0, 3.142, 0))
+#				set_rotation(Vector3(0, 3.142, 0))
 				move_snake(0, 0, variable_x)
 			elif(x_axis_count == 3):
 				variable_z = -speed
-				set_rotation(Vector3(0, 1.571, 0))
+#				set_rotation(Vector3(0, 1.571, 0))
 				move_snake(variable_z, 0, 0)
 			elif(x_axis_count == 4):
 				variable_x = -speed
@@ -93,7 +100,7 @@ func _fixed_process(delta):
 				x_axis_count = 4
 	elif (go_up == true):
 		variable_y = speed
-		set_rotation(Vector3(1.571, 0, 0))
+#		set_rotation(Vector3(1.571, 0, 0))
 		move_snake(0, variable_y, 0)
 		if(up_axis_count > 1):
 			go_up = false
@@ -101,7 +108,7 @@ func _fixed_process(delta):
 
 	elif(go_down == true):
 		variable_y = -speed
-		set_rotation(Vector3(-1.571, 0, 0))
+#		set_rotation(Vector3(-1.571, 0, 0))
 		move_snake(0, variable_y, 0)
 		if(down_axis_count > 1):
 			go_down = false
