@@ -6,7 +6,7 @@ var x_pos = get_translation().x
 var y_pos = get_translation().y
 
 func _process(delta):
-	get_parent().set_translation(get_parent().get_parent().get_node("KinematicBody").get_translation())
+	get_parent().set_translation(get_parent().get_parent().get_node("Snake").get_translation())
 #	if(Input.get_mouse_mode() != Input.MOUSE_MODE_CAPTURED):
 #		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
