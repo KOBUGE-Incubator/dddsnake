@@ -11,17 +11,16 @@ var go_left
 var go_up
 var go_down
 var go_backward
-
+var d = .2
 var speed = .2
 var tail
-var d = .5
 var x_axis_count = 0
 var up_axis_count = 0
 var down_axis_count = 0
 var go_forward = true
 var child_translation
 var array = []
-var count
+
 func _input(ev):
 	set_rotation(Vector3(.05, 0, 0))
 	if (Input.is_action_pressed("ui_right")):
@@ -53,11 +52,11 @@ func _input(ev):
 		down_axis_count = 0
 		
 func _fixed_process(delta):
-	array.append(get_translation())
-	count = 0
+	array.push_back(get_global_transform())
+
 	if d < 0:
-		count += 1
-		get_node("Tail").global_translate(array[count])
+		get_node("Tail").set_global_transform(array[0])
+		array.remove(0)
 
 	d += -delta
 	if(!(go_up or go_down)):
@@ -71,7 +70,7 @@ func _fixed_process(delta):
 #				set_rotation(Vector3(0, 3.142, 0))
 				move_snake(0, 0, variable_x)
 			elif(x_axis_count == 3):
-
+				variable_z = -speed
 #				set_rotation(Vector3(0, 1.571, 0))
 				move_snake(variable_z, 0, 0)
 			elif(x_axis_count == 4):
