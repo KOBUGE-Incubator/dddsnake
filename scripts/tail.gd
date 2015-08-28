@@ -17,7 +17,6 @@ func _process(delta):
 		if get_child(0).get_child(0) != null:
 			get_child(0).get_child(0).set_global_transform(array[0])
 			array.remove(0)
-			
 #Adds a tail to child of this node
 func add_tail():
 	var new_node = duplicate()

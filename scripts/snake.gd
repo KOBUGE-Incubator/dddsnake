@@ -49,6 +49,7 @@ func _input(ev):
 		down_axis_count = 0
 		
 func _fixed_process(delta):
+	print(is_colliding())
 	array.push_back(get_global_transform())
 
 	if delay_start < 0:
