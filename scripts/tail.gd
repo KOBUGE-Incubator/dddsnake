@@ -5,12 +5,21 @@ extends RigidBody
 # var b="textvar"
 var array = []
 
-var delay_start = .5
-
+var delay_start = .2
+var snake
 # State refers to PhysicsBodyDirectState (look it up in api)
 func _integrate_forces(state):
-	if(state.get_contact_count() >= 1):
-		get_tree().set_pause(true)
+	for i in range(state.get_contact_count()):
+		var cc = state.get_contact_collider_object(i)
+		if (cc):
+		#This part is weird, if the objects extends snake.gd then kill the game (because the head is the only object that extends it.
+		#Found how to do this in the 3d platformer demo enemy.gd
+			if (cc extends preload("res://scripts/snake.gd")):
+				print("BOOM")
+				set_process(false)
+				state.add_force(Vector3(rand_range(0, 3), rand_range(0, 3), rand_range(0, 3)), Vector3(rand_range(0, 3), rand_range(0, 3), rand_range(0, 3)))
+#	if((state.get_contact_count() >= 1)):
+#		get_tree().set_pause(true)
 #	print(state.get_contact_count())
 
 func _process(delta):
@@ -31,6 +40,8 @@ func add_tail():
 
 func _ready():
 	set_process(true)
+	if snake == null:
+		snake = get_parent()
 
 
 
