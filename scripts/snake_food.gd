@@ -1,9 +1,12 @@
 
-extends StaticBody
+extends Area
 
 var snake
+var score = 0
+var lbl
 
 func _ready():
+	lbl = get_parent().get_node("Node2D/Label")
 	snake = get_node("../Snake")
 	set_process(true)
 	hide()
@@ -12,12 +15,13 @@ func _ready():
 	show()
 
 func _process(delta):
-	if (snake):
-		if(snake.is_colliding()):
-			consume_food()
+	if(get_overlapping_bodies().size() >= 1):
+		consume_food()
 
 # This function handles what happens when snake food is collected
 func consume_food():
+	score  = 1 + int(lbl.get_text())
+	lbl.set_text(str(score))
 	var new_node = duplicate()
 	get_parent().add_child(new_node)
 		
@@ -29,6 +33,7 @@ func consume_food():
 		curr = curr.get_child(0)
 		
 	curr.get_parent().add_tail()
+
 	queue_free()
 
 
