@@ -6,7 +6,7 @@ var score = 0
 var lbl
 
 func _ready():
-	lbl = get_parent().get_node("Node2D/Label")
+	lbl = get_node("Node2D/Label")
 	snake = get_node("../Snake")
 	set_process(true)
 	hide()
