@@ -13,38 +13,29 @@ var down
 
 func _input(event):
 	if(Input.is_action_pressed("ui_right")):
-		right = true
-	if(Input.is_action_pressed("ui_left")):
-		left = true
-	if(Input.is_action_pressed("ui_down")):
-		down = true
-	if(Input.is_action_pressed("ui_up")):
-			up = true
-func _fixed_process(delta):
-
-	if (right):
 		rotate_y(PI/2)
 		force = force.rotated(Vector3(0,1,0), PI/2)
 		right = false
-	
-	if (left):
+	if(Input.is_action_pressed("ui_left")):
 		rotate_y(-PI/2)
 		force = force.rotated(Vector3(0,1,0), -PI/2)
-		left = false
-	
-	if (up):
+	if(Input.is_action_pressed("ui_down")):
 		rotate_x(PI/2)
 		force = force.rotated(Vector3(1,0,0), PI/2)
-		up = false
-	
-	if (down):
+	if(Input.is_action_pressed("ui_up")):
 		rotate_x(-PI/2)
 		force = force.rotated(Vector3(1,0,0), -PI/2)
-		down = false
+
+func _integrate_forces(state):
+	array.push_back(get_global_transform())
+	if delay_start < 0:
+		get_node("Tail").set_global_transform(array[0])
+		array.remove(0)
+	delay_start += -state.get_step()
 	
-	set_linear_velocity(force*speed*delta)
+	state.set_linear_velocity(force*speed*state.get_step())
 	
 func _ready():
 	set_process_input(true)
-	set_fixed_process(true)
+	
 
