@@ -1,4 +1,4 @@
-extends RigidBody
+extends Area
 
 # member variables here, example:
 # var a=2
@@ -10,8 +10,7 @@ var delay_start = .5
 # State refers to PhysicsBodyDirectState (look it up in api)
 func _integrate_forces(state):
 	if(state.get_contact_count() >= 1):
-		get_tree().set_pause(true)
-#	print(state.get_contact_count())
+		pass
 
 func _process(delta):
 	# This handles how the tails follow each other.
